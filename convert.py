@@ -86,14 +86,19 @@ def make_create_statement(table_name, f, dbms):
 				# if the types don't agree, make them text
 				coltype = find_datatype(col, dbms)
 				if i in types:
-					if coltype != types[i]:
+					if coltype in ("INTEGER", "FLOAT") and types[i] in ("INTEGER", "FLOAT"):
+						types[i] = "FLOAT"
+					elif coltype != types[i] and len(col) > 0:
 						types[i] = "TEXT"
-				else:
+				elif len(col) > 0:
 					types[i] = coltype
+		print(types)
 		# add each field to create statement
 		for i in range(len(header)):
 			name = header[i].replace(".", "_")
-			coltype = types[i]
+			coltype = "TEXT"
+			if i in types:
+				coltype = types[i]
 			# convert TEXTs to VARCHARs if we have a length for them
 			if coltype == "TEXT" and i in longest:
 				coltype = f"VARCHAR({max(longest[i], 1)})"
