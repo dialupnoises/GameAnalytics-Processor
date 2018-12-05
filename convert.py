@@ -122,8 +122,8 @@ def write_insert_statements(table, f, out):
 
 def main():
 	filename = sys.argv[1]
-    if os.path.isfile(filename):
-    	# table name is filename without extension
+	if os.path.isfile(filename):
+		# table name is filename without extension
 		table_name = os.path.splitext(os.path.basename(filename))[0]
 		output_name = table_name + ".sql"
 		with open(output_name, "w") as out:
