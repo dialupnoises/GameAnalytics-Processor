@@ -41,28 +41,37 @@ def check_timestamp(s):
 	return True
 
 # gives the proper postgres datatype for the given string
-def find_datatype(value):
+def find_datatype(value, dbms):
 	if check_int(value):
 		return "INTEGER"
 	if check_float(value):
 		return "FLOAT"
 	if check_uuid(value):
-		return "UUID"
+		if dbms == "postgres":
+			return "UUID"
+		elif dbms == "sqlserver":
+			return "uniqueidentifier"
 	if check_timestamp(value):
-		return "TIMESTAMP WITH TIME ZONE"
+		if dbms == "postgres":
+			return "TIMESTAMP WITH TIME ZONE"
+		elif dbms == "sqlserver":
+			return "DATETIMEOFFSET"
 	return "TEXT"
 
 # attaches the timezone of the timestamp to the end
-def format_timestamps(ts):
+def format_timestamps(ts, dbms):
 	current_zone = tz.tzlocal()
-	return ts + " " + datetime.datetime.now().astimezone(current_zone).strftime("%z")
+	offset = datetime.datetime.now().astimezone(current_zone).strftime("%z")
+	if dbms == "sqlserver":
+		offset = offset[:3] + ":" + offset[3:]
+	return ts + " " + offset
 
 # generates a CREATE TABLE statement for the given csv file
-def make_create_statement(table_name, f):
+def make_create_statement(table_name, f, dbms):
 	with open(f) as csvfile:
 		reader = csv.reader(csvfile)
 		header = next(reader)
-		lines = ["CREATE TABLE IF NOT EXISTS " + table_name + " ("]
+		lines = ["CREATE TABLE " + table_name + " ("]
 		longest = {}
 		types = {}
 		# go through every row and make sure the datatypes agree
@@ -75,7 +84,7 @@ def make_create_statement(table_name, f):
 				else:
 					longest[i] = len(col)
 				# if the types don't agree, make them text
-				coltype = find_datatype(col)
+				coltype = find_datatype(col, dbms)
 				if i in types:
 					if coltype != types[i]:
 						types[i] = "TEXT"
@@ -92,11 +101,9 @@ def make_create_statement(table_name, f):
 		# strip comma from last line
 		lines[-1] = lines[-1].strip(",")
 		lines.append(");")
-		# truncate table when importing so we're not duplicating data
-		lines.append("TRUNCATE TABLE " + table_name + ";")
 		return "\n".join(lines)
 
-def write_insert_statements(table, f, out):
+def write_insert_statements(table, f, out, dbms):
 	with open(f) as csvfile:
 		reader = csv.reader(csvfile)
 		# skip header
@@ -104,13 +111,13 @@ def write_insert_statements(table, f, out):
 		for row in reader:
 			fields = []
 			for col in row:
-				coltype = find_datatype(col)
+				coltype = find_datatype(col, dbms)
 				# if a number, we don't need quotes
 				if coltype == "INTEGER" or coltype == "FLOAT":
 					fields.append(col)
 				# if a timestamp, we need to add a timezone to the end of it
-				elif coltype == "TIMESTAMP WITH TIME ZONE":
-					fields.append("'" + format_timestamps(col) + "'")
+				elif coltype == "TIMESTAMP WITH TIME ZONE" or coltype == "DATETIMEOFFSET":
+					fields.append("'" + format_timestamps(col, dbms) + "'")
 				# if a string but there's nothing in it, we output NULL
 				elif coltype == "TEXT" and len(col) == 0:
 					fields.append("NULL")
@@ -122,15 +129,22 @@ def write_insert_statements(table, f, out):
 
 def main():
 	filename = sys.argv[1]
+	dbms = "postgres"
+	if len(sys.argv) > 2:
+		dbms = sys.argv[2]
+	if not dbms in ('postgres', 'sqlserver'):
+		print("Unsupported DBMS!")
+		return
+	print("DBMS set to " + dbms)
 	if os.path.isfile(filename):
 		# table name is filename without extension
 		table_name = os.path.splitext(os.path.basename(filename))[0]
 		output_name = table_name + ".sql"
 		with open(output_name, "w") as out:
 			print("Finding types...")
-			out.write(make_create_statement(table_name, filename) + "\n")
+			out.write(make_create_statement(table_name, filename, dbms) + "\n")
 			print("Writing data...")
-			write_insert_statements(table_name, filename, out)
+			write_insert_statements(table_name, filename, out, dbms)
 	else:
 		print("File not found!")
 

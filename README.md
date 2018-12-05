@@ -15,6 +15,6 @@ To use these scripts, you'll need some version of Python 3 installed.
 
 ## Converting to SQL
 
-I've also written a script to convert the generated CSV files into SQL for importing into a database. I've written this tool for use with PostgreSQL, but if you aren't using that, it should be easy to modify to work with MySQL or SQL Server or whatever you want.
+I've also written a script to convert the generated CSV files into SQL for importing into a database. It supports both PostgreSQL and SQL Server.
 
-To use the tool, simply run convert.py with the CSV file you want to convert. For example: `python convert.py merged_design.csv`.
+To use the tool, simply run convert.py with the CSV file you want to convert and the DBMS you are using. For example: `python convert.py merged_design.csv sqlserver`. Valid DBMS choices are "postgres" and "sqlserver".
