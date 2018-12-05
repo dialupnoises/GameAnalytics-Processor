@@ -12,3 +12,9 @@ To use these scripts, you'll need some version of Python 3 installed.
 4. Run the download.py script on the text file containing the URLs (for example, if the file was named "urls.txt", you'd do `python download.py urls.txt`). Wait for the script to run. When it's done you should have a large file named "merged.json" in that directory.
 5. Run the process.py script on the merged JSON file. For example, `python process.py merged.json`.
 6. Once the script is finished, you should now have each type of event separated out into its own CSV file. You can open these in Excel, import them into a database, or whatever you want to do.
+
+## Converting to SQL
+
+I've also written a script to convert the generated CSV files into SQL for importing into a database. I've written this tool for use with PostgreSQL, but if you aren't using that, it should be easy to modify to work with MySQL or SQL Server or whatever you want.
+
+To use the tool, simply run convert.py with the CSV file you want to convert. For example: `python convert.py merged_design.csv`.
