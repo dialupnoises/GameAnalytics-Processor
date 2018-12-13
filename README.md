@@ -2,7 +2,7 @@
 
 GameAnalytics exports data as a long list of JSON objects. [They offer a Python script for processing these into CSVs](https://gameanalytics.com/docs/item/data-export), but it doesn't work with the latest version of GameAnalytics or Python. This repo contains an updated version of that script as well as a script for downloading the exported data in the first place.
 
-To use these scripts, you'll need some version of Python 3 installed.
+To use these scripts, you'll need some version of Python 3 installed. You'll probably also need to `python -m pip install python-dateutil`.
 
 ## Usage
 
