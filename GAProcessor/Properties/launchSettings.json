@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "GAProcessor": {
+      "commandName": "Project",
+      "commandLineArgs": "-t sql --sql-database=mssql test.json.gz"
+    }
+  }
+}

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.156
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GAProcessor", "GAProcessor\GAProcessor.csproj", "{95D0F1EE-BF6A-41EC-BD44-150F3F6BD576}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GADownloader", "GADownloader\GADownloader.csproj", "{309B33BA-0649-4AC7-9D6D-7773396D404C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{95D0F1EE-BF6A-41EC-BD44-150F3F6BD576}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95D0F1EE-BF6A-41EC-BD44-150F3F6BD576}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95D0F1EE-BF6A-41EC-BD44-150F3F6BD576}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95D0F1EE-BF6A-41EC-BD44-150F3F6BD576}.Release|Any CPU.Build.0 = Release|Any CPU
+		{309B33BA-0649-4AC7-9D6D-7773396D404C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{309B33BA-0649-4AC7-9D6D-7773396D404C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{309B33BA-0649-4AC7-9D6D-7773396D404C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{309B33BA-0649-4AC7-9D6D-7773396D404C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1E7CB089-8862-4624-9D54-5C0C1021826F}
+	EndGlobalSection
+EndGlobal

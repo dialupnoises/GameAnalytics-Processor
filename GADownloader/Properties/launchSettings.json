@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "GADownloader": {
+      "commandName": "Project",
+      "commandLineArgs": "urls.txt merged.json.gz"
+    }
+  }
+}
