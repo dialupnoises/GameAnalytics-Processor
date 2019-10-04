@@ -39,6 +39,11 @@ namespace GAProcessor
 					"set the DBMS to output SQL statements for (postgres, sqlserver, and mysql supported, default postgres)",
 					v => conf.SqlDatabase = Config.ParseEnumLower<Config.DatabaseType>(v)
 				},
+				{
+					"sql-table-prefix=",
+					"set the prefix for table names. default is 'ga'",
+					v => conf.SqlTablePrefix = v + "_"
+				},
 				{ "h|help", "show this help", v => help = v != null }
 			};
 

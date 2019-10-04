@@ -37,6 +37,8 @@ Available options:
       --sql-database=VALUE   set the DBMS to output SQL statements for
                                (postgres, sqlserver, and mysql supported,
                                default postgres)
+      --sql-table-prefix=VALUE
+                             set the prefix for table names. default is 'ga'
   -h, --help                 show this help
  ```
 

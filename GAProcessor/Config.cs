@@ -23,7 +23,7 @@ namespace GAProcessor
 		/// <summary>
 		/// Prefix for SQL table names.
 		/// </summary>
-		public string SqlTablePrefix = "";
+		public string SqlTablePrefix = "ga_";
 
 		/// <summary>
 		/// Should we generate varchar columns or text columns?
