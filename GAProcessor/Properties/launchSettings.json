@@ -2,7 +2,7 @@
   "profiles": {
     "GAProcessor": {
       "commandName": "Project",
-      "commandLineArgs": "-t sql --sql-database=mssql test.json.gz"
+      "commandLineArgs": "-t sql --sql-database=mssql merged.json.gz"
     }
   }
 }

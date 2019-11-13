@@ -34,13 +34,14 @@ namespace GAProcessor
 				"data.sdk_version",
 				"data.device",
 				"data.manufacturer",
-				"data.*_app_version",
+				"data.build",
 				"data.connection_type",
 				"country_code",
 				"arrival_ts",
 				"game_id",
 				"user_meta.install_ts",
-				"user_meta.cohort_week"
+				"user_meta.cohort_week",
+				"user_meta.first_build"
 			);
 		}
 
