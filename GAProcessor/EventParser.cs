@@ -160,7 +160,9 @@ namespace GAProcessor
 		public ProgressionParser() : base("progression")
 		{
 			AddColumns(
-				"data.event_id"
+				"data.event_id",
+				"data.score",
+				"data.engine_version"
 			);
 		}
 	}
